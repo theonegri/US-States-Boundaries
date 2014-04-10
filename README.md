@@ -1,7 +1,6 @@
 US-States-Boundaries
 ====================
 
-List of US states Bondaries in XML on Google Maps APi V3 js compatible
+Script parsing KML coordinates from custom google maps drawing (https://mapsengine.google.com/map/u/0/) and creating a 'google maps javascript v3' compatible variable with poligons.
 
-
-On a project I add to draw polygons on a custom google map. Each polygon was a states in the US.
+See demo/index.html for better understanding.
