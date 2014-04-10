@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>US States Polygons</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+</head>
+
+<body>
+	<div id="map-canvas"></div>
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&dummy=.js"></script>
+	<script src="../src/stateBorders.js"></script>
+	<script src="../src/stateCodes.js"></script>
+
+
+	<script>
+	function createPoly(stateCode) {
+		var polygon = new google.maps.Polygon({
+			paths: stateBorders[stateCode],
+			strokeColor: '#FF0000',
+			strokeOpacity: 0,
+			strokeWeight: -0,
+			fillColor: '#FF0000',
+			fillOpacity: 0
+		});
+		return polygon;
+	}
+
+	function load_polygons(map) {
+		for (stateCodes in stateBorders) {
+			var polygon = createPoly(stateCodes);
+			polygon.setMap(map);
+			google.maps.event.addListener(polygon,"mouseover",function(){
+				this.setOptions({
+					strokeColor: '#3276b1',
+					strokeOpacity: 0.40,
+					strokeWeight: 1,
+					fillColor: '#3276b1',
+					fillOpacity: 0.20
+				});
+			}); 
+
+			google.maps.event.addListener(polygon,"mouseout",function(){
+				this.setOptions({
+					strokeColor: '#3276b1',
+					strokeOpacity: 0,
+					strokeWeight: 0,
+					fillColor: '#FF0000',
+					fillOpacity: 0
+				});
+			});
+		}
+	}
+
+	function initialize() {
+		var mapOptions = {
+			center: new google.maps.LatLng(37.09024 ,-95.71289),
+			zoom: 5
+		};
+
+		var map = new google.maps.Map(document.getElementById("map-canvas"),
+		mapOptions);
+		
+		load_polygons(map)
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+</body>
+</html>
